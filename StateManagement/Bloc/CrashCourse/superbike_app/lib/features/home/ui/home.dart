@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:superbike_app/features/cart/ui/cart.dart';
@@ -14,19 +12,20 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> {
+  final HomeBloc homeBloc = HomeBloc();
+
   @override
   void initState() {
     homeBloc.add(HomeInitialEvent());
     super.initState();
   }
 
-  final HomeBloc homeBloc = HomeBloc();
-
   @override
   Widget build(BuildContext context) {
     return BlocConsumer<HomeBloc, HomeState>(
+      bloc: homeBloc,
       listenWhen: (previous, current) => current is HomeActionState,
-      buildWhen: (previous, current) => current is HomeActionState == false,
+      buildWhen: (previous, current) => current is! HomeActionState,
       listener: (context, state) {
         if (state is HomeNavigateToCartPageActionState) {
           Navigator.of(context).push(
@@ -44,48 +43,100 @@ class _HomeState extends State<Home> {
         }
       },
       builder: (context, state) {
-        log(state.toString());
-        return Scaffold(
-          appBar: AppBar(
-            centerTitle: true,
-            title: const Text("SuperBike"),
-            actions: [
-              IconButton(
-                onPressed: () {
-                  homeBloc.add(HomeWishlistOnTapNavigateEvent());
-                },
-                icon: const Icon(
-                  Icons.star_border,
-                ),
+        switch (state.runtimeType) {
+          case HomeLoadingState:
+            return Scaffold(
+              appBar: AppBar(
+                centerTitle: true,
+                title: const Text("SuperBike"),
+                actions: [
+                  IconButton(
+                    onPressed: () {
+                      homeBloc.add(HomeWishlistOnTapNavigateEvent());
+                    },
+                    icon: const Icon(
+                      Icons.star_border,
+                    ),
+                  ),
+                  IconButton(
+                    onPressed: () {
+                      homeBloc.add(HomeCartOnTapNavigateEvent());
+                    },
+                    icon: const Icon(
+                      Icons.bar_chart_sharp,
+                    ),
+                  ),
+                ],
               ),
-              IconButton(
-                onPressed: () {
-                  homeBloc.add(HomeCartOnTapNavigateEvent());
-                },
-                icon: const Icon(
-                  Icons.bar_chart_sharp,
-                ),
-              ),
-            ],
-          ),
-          body: state is HomeLoadingState
-              ? const Center(
-                  child: CircularProgressIndicator(
+              body: const Center(
+                child: CircularProgressIndicator(
                   color: Colors.amber,
-                ))
-              : state is HomeLoadedSuccessState
-                  ? const Text("Dataa")
-                  : state.runtimeType is HomeErrorState
-                      ? const Text("Something went wrong")
-                      : body(),
-        );
-      },
-    );
-  }
+                ),
+              ),
+            );
 
-  Widget body() {
-    return const Center(
-      child: Text("No Data"),
+          case HomeLoadedSuccessState:
+            return Scaffold(
+              appBar: AppBar(
+                centerTitle: true,
+                title: const Text("SuperBike"),
+                actions: [
+                  IconButton(
+                    onPressed: () {
+                      homeBloc.add(HomeWishlistOnTapNavigateEvent());
+                    },
+                    icon: const Icon(
+                      Icons.star_border,
+                    ),
+                  ),
+                  IconButton(
+                    onPressed: () {
+                      homeBloc.add(HomeCartOnTapNavigateEvent());
+                    },
+                    icon: const Icon(
+                      Icons.bar_chart_sharp,
+                    ),
+                  ),
+                ],
+              ),
+              body: const Center(
+                child: Text("data"),
+              ),
+            );
+          case HomeErrorState:
+            return Scaffold(
+              appBar: AppBar(
+                centerTitle: true,
+                title: const Text("SuperBike"),
+                actions: [
+                  IconButton(
+                    onPressed: () {
+                      homeBloc.add(HomeWishlistOnTapNavigateEvent());
+                    },
+                    icon: const Icon(
+                      Icons.star_border,
+                    ),
+                  ),
+                  IconButton(
+                    onPressed: () {
+                      homeBloc.add(HomeCartOnTapNavigateEvent());
+                    },
+                    icon: const Icon(
+                      Icons.bar_chart_sharp,
+                    ),
+                  ),
+                ],
+              ),
+              body: const Center(child: Text("Something went wrong")),
+            );
+          default:
+            return const Scaffold(
+              body: Center(
+                child: Text("Default"),
+              ),
+            );
+        }
+      },
     );
   }
 }

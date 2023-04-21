@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:superbike_app/features/home/bloc/home_bloc.dart';
 import 'package:superbike_app/features/home/ui/home.dart';
 
 void main() {
@@ -29,10 +27,7 @@ class MyApp extends StatelessWidget {
         primarySwatch: Colors.teal,
       ),
       debugShowCheckedModeBanner: false,
-      home: BlocProvider(
-        create: (context) => HomeBloc(),
-        child: const Home(),
-      ),
+      home: const Home(),
     );
   }
 }

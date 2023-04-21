@@ -1,8 +1,8 @@
 import 'dart:async';
 import 'dart:developer';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:superbike_app/data/superbikes_data.dart';
 import 'package:superbike_app/features/home/model/home_product_data_model.dart';
 
@@ -19,26 +19,30 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
   }
 
   FutureOr<void> homeInitialEvent(
-      HomeInitialEvent event, Emitter<HomeState> emit) async {
-    emit(HomeLoadingState());
-    log("message");
-    await Future.delayed(const Duration(seconds: 10));
-    log("message");
-    emit(
-      HomeLoadedSuccessState(
-        product: SuperBikesData.superBikeList
-            .map(
-              (e) => ProductDataModel(
-                id: e["id"],
-                name: e["name"],
-                desc: e["desc"],
-                imageUrl: e["image"],
-                price: e["price"],
-              ),
-            )
-            .toList(),
-      ),
-    );
+    HomeInitialEvent event,
+    Emitter<HomeState> emit,
+  ) async {
+    try {
+      emit(HomeLoadingState());
+      await Future.delayed(const Duration(seconds: 3));
+      emit(
+        HomeLoadedSuccessState(
+          product: SuperBikesData.superBikeList
+              .map(
+                (e) => ProductDataModel(
+                  id: e["id"],
+                  name: e["name"],
+                  desc: e["desc"],
+                  imageUrl: e["image"],
+                  price: e["price"],
+                ),
+              )
+              .toList(),
+        ),
+      );
+    } catch (e) {
+      log(e.toString());
+    }
   }
 
   FutureOr<void> homeProductWishlistOnClickedEvent(
