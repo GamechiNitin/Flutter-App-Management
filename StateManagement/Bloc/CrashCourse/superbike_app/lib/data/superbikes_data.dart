@@ -8,7 +8,7 @@ class SuperBikesData {
       "price": "32,000,00.00",
       "desc": "Not Availabe",
       "image":
-          "https://www.google.com/search?q=Kawasaki+Ninja+H2&source=lnms&tbm=isch&sa=X&ved=2ahUKEwjRuO6b87X-AhVv-DgGHTwYCIgQ_AUoAXoECAEQAw&biw=1366&bih=657&dpr=1#imgrc=7KCxBCWWjUb0dM",
+          "https://upload.wikimedia.org/wikipedia/commons/thumb/4/4f/Kawasaki_Ninja_H2.jpg/1200px-Kawasaki_Ninja_H2.jpg",
     },
     {
       "id": 2,
@@ -16,7 +16,7 @@ class SuperBikesData {
       "price": "22,000,00.00",
       "desc": "Not Availabe",
       "image":
-          "https://www.google.com/search?q=bmw+s+1000+rr&source=lnms&tbm=isch&sa=X&ved=2ahUKEwi6yuDD87X-AhWKxjgGHbJbCNcQ_AUoAXoECAEQAw&biw=1366&bih=657&dpr=1#imgrc=WTV7dLYE9y1iaM",
+          "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ1TH3knmrUqZK3VYUC44-ttRQoEHuPGLskzA&usqp=CAU",
     },
     {
       "id": 3,
@@ -24,7 +24,7 @@ class SuperBikesData {
       "price": "12,000,00.00",
       "desc": "Not Availabe",
       "image":
-          "https://www.google.com/search?q=Yamaha+YZF+R1&source=lnms&tbm=isch&sa=X&ved=2ahUKEwiy_7L187X-AhVu-TgGHcZiAcsQ_AUoAXoECAEQAw&biw=1366&bih=657&dpr=1#imgrc=NXJrLyisKb1eTM",
+          "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRZWyWt7-FAgqb5AuFl1j9cBavXjrPUkN9d_Q&usqp=CAU",
     },
   ];
 }

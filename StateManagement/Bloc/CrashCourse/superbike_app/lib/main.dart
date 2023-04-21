@@ -24,7 +24,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'SuperBike App',
       theme: ThemeData(
-        primarySwatch: Colors.teal,
+        primarySwatch: Colors.red,
       ),
       debugShowCheckedModeBanner: false,
       home: const Home(),
