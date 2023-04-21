@@ -39,6 +39,9 @@ class _HomeState extends State<Home> {
             ),
           );
         }
+        if (state is HomeStarAddedState) {
+          Helper.toast(context, AppString.addStar);
+        }
       },
       builder: (context, state) {
         return Scaffold(
@@ -81,6 +84,10 @@ class _HomeState extends State<Home> {
                               name: state.product[index].name,
                               url: state.product[index].imageUrl,
                               price: state.product[index].price,
+                              onFavoriteTap: () {
+                                homeBloc.add(HomeProductCartOnClickedEvent(
+                                    state.product[index]));
+                              },
                             );
                           },
                         )

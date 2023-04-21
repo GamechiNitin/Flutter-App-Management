@@ -3,6 +3,7 @@ import 'dart:developer';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import 'package:flutter/material.dart';
+import 'package:superbike_app/data/star_data.dart';
 import 'package:superbike_app/data/superbikes_data.dart';
 import 'package:superbike_app/features/home/model/home_product_data_model.dart';
 
@@ -13,7 +14,7 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
   HomeBloc() : super(HomeInitial()) {
     on<HomeInitialEvent>(homeInitialEvent);
     on<HomeProductWishlistOnClickedEvent>(homeProductWishlistOnClickedEvent);
-    on<HomeProductCartOnClickedEvent>(homeProductCartOnClickedEvent);
+    on<HomeProductCartOnClickedEvent>(homeProductStarOnClickedEvent);
     on<HomeWishlistOnTapNavigateEvent>(homeWishlistOnTapNavigateEvent);
     on<HomeCartOnTapNavigateEvent>(homeCartOnTapNavigateEvent);
   }
@@ -50,9 +51,12 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
     log("homeProductWishlistOnClickedEvent");
   }
 
-  FutureOr<void> homeProductCartOnClickedEvent(
+  FutureOr<void> homeProductStarOnClickedEvent(
       HomeProductCartOnClickedEvent event, Emitter<HomeState> emit) {
-    log("homeProductCartOnClickedEvent");
+    log("homeProductStarOnClickedEvent");
+    starList.add(event.clickedProduct);
+    log(starList.length.toString());
+    emit(HomeStarAddedState());
   }
 
   FutureOr<void> homeWishlistOnTapNavigateEvent(

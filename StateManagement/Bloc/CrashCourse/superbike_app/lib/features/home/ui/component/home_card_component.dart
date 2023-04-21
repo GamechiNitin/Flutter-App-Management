@@ -2,8 +2,9 @@ import 'package:superbike_app/utils/import.dart';
 
 class HomeCardComponent extends StatelessWidget {
   const HomeCardComponent(
-      {super.key, required this.url, required this.name, required this.price});
+      {super.key, required this.url, required this.name, required this.price, required this.onFavoriteTap});
   final String name, price, url;
+  final VoidCallback onFavoriteTap;
   @override
   Widget build(BuildContext context) {
     return Stack(
@@ -68,7 +69,7 @@ class HomeCardComponent extends StatelessWidget {
               Row(
                 children: [
                   IconButton(
-                    onPressed: () {},
+                    onPressed: onFavoriteTap,
                     icon: const Icon(
                       Icons.star_border,
                       color: Colors.white,
