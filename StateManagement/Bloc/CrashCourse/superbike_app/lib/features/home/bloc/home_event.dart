@@ -5,15 +5,9 @@ abstract class HomeEvent {}
 
 class HomeInitialEvent extends HomeEvent {}
 
-class HomeProductWishlistOnClickedEvent extends HomeEvent {}
-
-class HomeProductCartOnClickedEvent extends HomeEvent {
+class HomeProductStarOnClickedEvent extends HomeEvent {
   final ProductDataModel clickedProduct;
-  HomeProductCartOnClickedEvent(this.clickedProduct);
+  HomeProductStarOnClickedEvent(this.clickedProduct);
 }
 
-class HomeWishlistOnTapNavigateEvent extends HomeEvent {}
-
-class HomeCartOnTapNavigateEvent extends HomeEvent {
-  // log("");
-}
+class HomeStarOnTapNavigateEvent extends HomeEvent {}

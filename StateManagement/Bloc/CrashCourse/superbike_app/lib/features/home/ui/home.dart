@@ -1,6 +1,4 @@
-import 'package:superbike_app/features/home/ui/component/home_card_component.dart';
 import 'package:superbike_app/utils/import.dart';
-import 'package:superbike_app/utils/strings.dart';
 
 class Home extends StatefulWidget {
   const Home({super.key});
@@ -25,20 +23,14 @@ class _HomeState extends State<Home> {
       listenWhen: (previous, current) => current is HomeActionState,
       buildWhen: (previous, current) => current is! HomeActionState,
       listener: (context, state) {
-        if (state is HomeNavigateToCartPageActionState) {
+        if (state is HomeNavigateToStarPageActionState) {
           Navigator.of(context).push(
             MaterialPageRoute(
-              builder: (context) => const Cart(),
+              builder: (context) => const Star(),
             ),
           );
         }
-        if (state is HomeNavigateToWishlistPageActionState) {
-          Navigator.of(context).push(
-            MaterialPageRoute(
-              builder: (context) => const Wishlist(),
-            ),
-          );
-        }
+
         if (state is HomeStarAddedState) {
           Helper.toast(context, AppString.addStar);
         }
@@ -51,18 +43,10 @@ class _HomeState extends State<Home> {
             actions: [
               IconButton(
                 onPressed: () {
-                  homeBloc.add(HomeWishlistOnTapNavigateEvent());
+                  homeBloc.add(HomeStarOnTapNavigateEvent());
                 },
                 icon: const Icon(
                   Icons.star_border,
-                ),
-              ),
-              IconButton(
-                onPressed: () {
-                  homeBloc.add(HomeCartOnTapNavigateEvent());
-                },
-                icon: const Icon(
-                  Icons.bar_chart_sharp,
                 ),
               ),
             ],
@@ -84,9 +68,14 @@ class _HomeState extends State<Home> {
                               name: state.product[index].name,
                               url: state.product[index].imageUrl,
                               price: state.product[index].price,
-                              onFavoriteTap: () {
-                                homeBloc.add(HomeProductCartOnClickedEvent(
-                                    state.product[index]));
+                              isStared: starList
+                                  .any((e) => e.id == state.product[index].id),
+                              onStarTap: () {
+                                homeBloc.add(
+                                  HomeProductStarOnClickedEvent(
+                                      state.product[index]),
+                                );
+                                setState(() {});
                               },
                             );
                           },

@@ -2,9 +2,15 @@ import 'package:superbike_app/utils/import.dart';
 
 class HomeCardComponent extends StatelessWidget {
   const HomeCardComponent(
-      {super.key, required this.url, required this.name, required this.price, required this.onFavoriteTap});
+      {super.key,
+      required this.url,
+      required this.name,
+      required this.price,
+      required this.onStarTap,
+      required this.isStared});
   final String name, price, url;
-  final VoidCallback onFavoriteTap;
+  final VoidCallback onStarTap;
+  final bool isStared;
   @override
   Widget build(BuildContext context) {
     return Stack(
@@ -21,9 +27,7 @@ class HomeCardComponent extends StatelessWidget {
           ),
         ),
         Container(
-          padding: EdgeInsets.symmetric(
-            horizontal: 16,
-          ),
+          padding: const EdgeInsets.symmetric(horizontal: 16),
           decoration: BoxDecoration(
             color: Colors.black.withOpacity(0.5),
             borderRadius: const BorderRadius.only(
@@ -66,17 +70,13 @@ class HomeCardComponent extends StatelessWidget {
                   ],
                 ),
               ),
-              Row(
-                children: [
-                  IconButton(
-                    onPressed: onFavoriteTap,
-                    icon: const Icon(
-                      Icons.star_border,
-                      color: Colors.white,
-                      size: 30,
-                    ),
-                  )
-                ],
+              IconButton(
+                onPressed: onStarTap,
+                icon: Icon(
+                  isStared ? Icons.star : Icons.star_border,
+                  color: isStared ? Colors.yellow : Colors.white,
+                  size: 30,
+                ),
               )
             ],
           ),

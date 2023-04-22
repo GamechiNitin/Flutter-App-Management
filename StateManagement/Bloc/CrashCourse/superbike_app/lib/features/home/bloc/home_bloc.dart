@@ -13,10 +13,8 @@ part 'home_state.dart';
 class HomeBloc extends Bloc<HomeEvent, HomeState> {
   HomeBloc() : super(HomeInitial()) {
     on<HomeInitialEvent>(homeInitialEvent);
-    on<HomeProductWishlistOnClickedEvent>(homeProductWishlistOnClickedEvent);
-    on<HomeProductCartOnClickedEvent>(homeProductStarOnClickedEvent);
-    on<HomeWishlistOnTapNavigateEvent>(homeWishlistOnTapNavigateEvent);
-    on<HomeCartOnTapNavigateEvent>(homeCartOnTapNavigateEvent);
+    on<HomeProductStarOnClickedEvent>(homeProductStarOnClickedEvent);
+    on<HomeStarOnTapNavigateEvent>(homeCartOnTapNavigateEvent);
   }
 
   FutureOr<void> homeInitialEvent(
@@ -46,28 +44,15 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
     }
   }
 
-  FutureOr<void> homeProductWishlistOnClickedEvent(
-      HomeProductWishlistOnClickedEvent event, Emitter<HomeState> emit) {
-    log("homeProductWishlistOnClickedEvent");
-  }
-
   FutureOr<void> homeProductStarOnClickedEvent(
-      HomeProductCartOnClickedEvent event, Emitter<HomeState> emit) {
-    log("homeProductStarOnClickedEvent");
+      HomeProductStarOnClickedEvent event, Emitter<HomeState> emit) {
     starList.add(event.clickedProduct);
-    log(starList.length.toString());
     emit(HomeStarAddedState());
   }
 
-  FutureOr<void> homeWishlistOnTapNavigateEvent(
-      HomeWishlistOnTapNavigateEvent event, Emitter<HomeState> emit) {
-    log("homeWishlistOnTapNavigateEvent");
-    emit(HomeNavigateToWishlistPageActionState());
-  }
-
   FutureOr<void> homeCartOnTapNavigateEvent(
-      HomeCartOnTapNavigateEvent event, Emitter<HomeState> emit) {
+      HomeStarOnTapNavigateEvent event, Emitter<HomeState> emit) {
     log("homeCartOnTapNavigateEvent");
-    emit(HomeNavigateToCartPageActionState());
+    emit(HomeNavigateToStarPageActionState());
   }
 }
