@@ -29,4 +29,15 @@ class CounterCubit extends Cubit<CounterInitial> {
       ),
     );
   }
+
+  void refresh() {
+    seed = 1;
+
+    emit(
+      CounterInitial(
+        countValue: 0,
+        seed: 1,
+      ),
+    );
+  }
 }

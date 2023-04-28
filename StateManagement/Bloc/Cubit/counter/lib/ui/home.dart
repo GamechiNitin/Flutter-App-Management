@@ -27,27 +27,41 @@ class Home extends StatelessWidget {
             title: Text("Counter App"),
           ),
           body: Center(
-              child: RichText(
-            textAlign: TextAlign.center,
-            text: TextSpan(
-              text: state.countValue.toString(),
-              style: TextStyle(
-                fontSize: 45,
-                fontWeight: FontWeight.bold,
-                color: Colors.black,
-              ),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                TextSpan(
-                  text: "\nCurrent Counter",
-                  style: TextStyle(
-                    fontSize: 14,
-                    fontWeight: FontWeight.normal,
-                    // color: Colors.black,
+                RichText(
+                  textAlign: TextAlign.center,
+                  text: TextSpan(
+                    text: state.countValue.toString(),
+                    style: TextStyle(
+                      fontSize: 45,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.black,
+                    ),
+                    children: [
+                      TextSpan(
+                        text: "\nCurrent Counter",
+                        style: TextStyle(
+                          fontSize: 14,
+                          fontWeight: FontWeight.normal,
+                          // color: Colors.black,
+                        ),
+                      )
+                    ],
                   ),
+                ),
+                SizedBox(height: 20),
+                TextButton(
+                  child: Text("Refresh"),
+                  onPressed: () {
+                    final provider = BlocProvider.of<CounterCubit>(context);
+                    provider.refresh();
+                  },
                 )
               ],
             ),
-          )),
+          ),
           bottomNavigationBar: Padding(
             padding: const EdgeInsets.only(bottom: 30),
             child: Column(
