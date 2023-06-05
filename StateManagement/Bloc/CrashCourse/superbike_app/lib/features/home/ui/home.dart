@@ -1,3 +1,4 @@
+import 'package:superbike_app/features/posts/ui/posts_page.dart';
 import 'package:superbike_app/utils/import.dart';
 
 class Home extends StatefulWidget {
@@ -41,6 +42,18 @@ class _HomeState extends State<Home> {
             centerTitle: true,
             title: const Text("SuperBike"),
             actions: [
+              IconButton(
+                onPressed: () {
+                  Navigator.of(context).push(
+                    MaterialPageRoute(
+                      builder: (context) => const Posts(),
+                    ),
+                  );
+                },
+                icon: const Icon(
+                  Icons.star_border,
+                ),
+              ),
               IconButton(
                 onPressed: () {
                   homeBloc.add(HomeStarOnTapNavigateEvent());
