@@ -19,6 +19,14 @@ class _PostsState extends State<Posts> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          postBloc.add(CreatePostEvent());
+        },
+        child: const Icon(
+          Icons.add,
+        ),
+      ),
       appBar: AppBar(
         title: const Text(
           "Posts",

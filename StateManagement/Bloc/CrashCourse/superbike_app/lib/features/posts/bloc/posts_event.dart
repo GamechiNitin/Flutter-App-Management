@@ -7,3 +7,5 @@ abstract class PostsEvent {}
 class IntialPostEvent implements PostsEvent{
   
 }
+
+class CreatePostEvent implements PostsEvent{}

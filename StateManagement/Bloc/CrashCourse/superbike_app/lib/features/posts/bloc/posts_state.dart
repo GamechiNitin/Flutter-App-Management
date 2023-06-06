@@ -15,3 +15,5 @@ class PostFetchedSuccessState extends PostsState {
 
   PostFetchedSuccessState(this.postsList);
 }
+
+class PostAddedState extends PostsState{}

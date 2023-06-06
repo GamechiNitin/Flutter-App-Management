@@ -51,7 +51,7 @@ class _HomeState extends State<Home> {
                   );
                 },
                 icon: const Icon(
-                  Icons.star_border,
+                  Icons.podcasts,
                 ),
               ),
               IconButton(

@@ -25,4 +25,25 @@ class PostRepository {
     }
     return null;
   }
+
+  static Future<bool> createPost() async {
+    var client = http.Client();
+    try {
+      var response = await client.post(
+        Uri.parse(
+          'https://jsonplaceholder.typicode.com/posts/',
+        ),
+        body: {
+          "title": "Main Title",
+          "body": "data",
+        },
+      );
+      if (response.statusCode == 200) {
+        return true;
+      }
+    } catch (e) {
+      log(e.toString());
+    }
+    return false;
+  }
 }

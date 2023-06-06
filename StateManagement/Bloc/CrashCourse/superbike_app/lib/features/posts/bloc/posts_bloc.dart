@@ -7,6 +7,7 @@ part 'posts_state.dart';
 class PostsBloc extends Bloc<PostsEvent, PostsState> {
   PostsBloc() : super(PostsInitial()) {
     on<IntialPostEvent>(intialPostEvent);
+    on<CreatePostEvent>(createPostEvent);
   }
 
   FutureOr<void> intialPostEvent(
@@ -17,6 +18,17 @@ class PostsBloc extends Bloc<PostsEvent, PostsState> {
       emit(PostErrorState());
     } else {
       emit(PostFetchedSuccessState(posts));
+    }
+  }
+
+  FutureOr<void> createPostEvent(
+      CreatePostEvent event, Emitter<PostsState> emit) async {
+    emit(LoadingState());
+    bool isPostCreated = await PostRepository.createPost();
+    if (isPostCreated) {
+      emit(PostAddedState());
+    } else {
+      emit(PostErrorState());
     }
   }
 }
