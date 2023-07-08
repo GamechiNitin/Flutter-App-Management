@@ -1,4 +1,4 @@
-import 'package:codecamp/chapter_1/pick_random_names.dart';
+import 'package:codecamp/chapter_1/pick_random_name_stl.dart';
 import 'package:flutter/material.dart';
 
 void main() {
@@ -17,7 +17,7 @@ class MyApp extends StatelessWidget {
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         useMaterial3: true,
       ),
-      home: const PickRandomNamesScreenSTF(),
+      home: const PickRandomNamesScreenSTL(),
     );
   }
 }
