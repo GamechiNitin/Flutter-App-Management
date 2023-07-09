@@ -1,4 +1,4 @@
-import 'package:codecamp/chapter_1/pick_random_name_stl.dart';
+import 'package:codecamp/chapter_2/person_screen.dart';
 import 'package:flutter/material.dart';
 
 void main() {
@@ -11,13 +11,21 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Bloc',
+      title: "",
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         useMaterial3: true,
       ),
-      home: const PickRandomNamesScreenSTL(),
+      /*
+        Chapter : 1
+          home: const PickRandomNamesScreenSTL(),
+        Chapter : 2
+          home: const PersonScreen(),
+
+      */
+
+      home: const PersonScreen(),
     );
   }
 }
