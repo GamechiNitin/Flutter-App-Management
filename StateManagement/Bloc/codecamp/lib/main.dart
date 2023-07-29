@@ -1,4 +1,4 @@
-import 'package:codecamp/chapter_2/person_screen.dart';
+import 'package:codecamp/chapter_3/ui/home_3.dart';
 import 'package:flutter/material.dart';
 
 void main() {
@@ -25,7 +25,7 @@ class MyApp extends StatelessWidget {
 
       */
 
-      home: const PersonScreen(),
+      home: const Home3Screen(),
     );
   }
 }

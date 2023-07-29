@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:developer';
 
 import 'package:codecamp/chapter_3/api/login_api.dart';
 import 'package:codecamp/chapter_3/api/notes_api.dart';
@@ -12,11 +13,11 @@ part 'app_event.dart';
 part 'app_state.dart';
 
 class AppBloc extends Bloc<AppEvent, AppState> {
-  final LogInApiProtocol logInApiProtocol;
-  final NotesApiProtocol notesApiProtocol;
+  final LogInApiProtocol logInApi;
+  final NotesApiProtocol notesApi;
   AppBloc({
-    required this.logInApiProtocol,
-    required this.notesApiProtocol,
+    required this.logInApi,
+    required this.notesApi,
   }) : super(const AppInitialState()) {
     on<LogInAction>(logInAction);
     on<LoadNotesEvent>(loadNotesEvent);
@@ -27,13 +28,17 @@ class AppBloc extends Bloc<AppEvent, AppState> {
     emit(const AppInitialState(isLoadingInitial: true));
 
     // LogInAPI
-    final logInHandle = await logInApiProtocol.logIn(
+    final logInHandle = await logInApi.logIn(
       email: event.email,
       password: event.password,
     );
 
+    log("Token ${logInHandle?.token}");
+
     emit(
       AppInitialState(
+        isLoadingInitial: false,
+        fetchNotesInitial: null,
         logInHandleInitial: logInHandle,
         logInErrorInitial:
             logInHandle == null ? LogInError.invalidHandle : null,
@@ -63,7 +68,7 @@ class AppBloc extends Bloc<AppEvent, AppState> {
     } else {
       // This is valid Login Handle
 
-      final notes = await notesApiProtocol.getNotes(
+      final notes = await notesApi.getNotes(
         logInHandle: logInHandle!,
       );
       emit(
