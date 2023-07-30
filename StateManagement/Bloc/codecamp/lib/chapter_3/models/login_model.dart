@@ -6,7 +6,7 @@ class LogInHandle {
 
   const LogInHandle({required this.token});
 
-  const LogInHandle.fooBar() : token = 'foobar';
+  const LogInHandle.fooBar() : token = 'token';
 
   @override
   bool operator ==(covariant LogInHandle other) => token == other.token;

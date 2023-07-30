@@ -1,7 +1,7 @@
 part of 'app_bloc.dart';
 
 @immutable
-abstract class AppState {
+class AppState {
   final bool isLoading;
   final LogInError? logInError;
   final LogInHandle? logInHandle;
@@ -27,6 +27,28 @@ abstract class AppState {
         logInError = null,
         logInHandle = null,
         fetchNotes = null;
+
+  @override
+  bool operator ==(covariant AppState other) {
+    final otherPropertiesAreEqual = isLoading == other.isLoading &&
+        logInError == other.logInError &&
+        logInHandle == other.logInHandle;
+
+    if (fetchNotes == null && other.fetchNotes == null) {
+      return otherPropertiesAreEqual;
+    } else {
+      return otherPropertiesAreEqual &&
+          (fetchNotes?.isEqualTo(other.fetchNotes) ?? false);
+    }
+  }
+
+  @override
+  int get hashCode => Object.hash(
+        isLoading,
+        logInError,
+        logInHandle,
+        fetchNotes,
+      );
 }
 
 class AppInitialState implements AppState {
@@ -53,4 +75,9 @@ class AppInitialState implements AppState {
 
   @override
   LogInHandle? get logInHandle => logInHandleInitial;
+}
+
+extension UnorderedEquality on Object {
+  bool isEqualTo(other) =>
+      const DeepCollectionEquality.unordered().equals(this, other);
 }

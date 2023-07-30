@@ -19,6 +19,7 @@ class Home3Screen extends StatelessWidget {
       create: (context) => AppBloc(
         logInApi: LogInApi.insatance(),
         notesApi: NoteApi(),
+        acceptedLogInHandle: const LogInHandle.fooBar(),
       ),
       child: Scaffold(
         appBar: AppBar(

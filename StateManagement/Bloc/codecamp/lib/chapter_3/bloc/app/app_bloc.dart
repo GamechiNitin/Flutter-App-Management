@@ -8,6 +8,7 @@ import 'package:codecamp/chapter_3/models/login_model.dart';
 import 'package:codecamp/chapter_3/models/note_model.dart';
 import 'package:flutter/foundation.dart' show immutable;
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:collection/collection.dart';
 
 part 'app_event.dart';
 part 'app_state.dart';
@@ -15,9 +16,12 @@ part 'app_state.dart';
 class AppBloc extends Bloc<AppEvent, AppState> {
   final LogInApiProtocol logInApi;
   final NotesApiProtocol notesApi;
+  final LogInHandle acceptedLogInHandle;
+
   AppBloc({
     required this.logInApi,
     required this.notesApi,
+    required this.acceptedLogInHandle,
   }) : super(const AppInitialState()) {
     on<LogInAction>(logInAction);
     on<LoadNotesEvent>(loadNotesEvent);
@@ -34,51 +38,51 @@ class AppBloc extends Bloc<AppEvent, AppState> {
     );
 
     log("Token ${logInHandle?.token}");
-
-    emit(
-      AppInitialState(
-        isLoadingInitial: false,
-        fetchNotesInitial: null,
-        logInHandleInitial: logInHandle,
-        logInErrorInitial:
-            logInHandle == null ? LogInError.invalidHandle : null,
-      ),
-    );
+    if (logInHandle == const LogInHandle.fooBar()) {
+      emit(const AppInitialState(logInHandleInitial: LogInHandle.fooBar()));
+    } else {
+      emit(const AppInitialState(logInErrorInitial: LogInError.invalidHandle));
+    }
   }
 
   FutureOr<void> loadNotesEvent(
       LoadNotesEvent event, Emitter<AppState> emit) async {
     // Loading
-    emit(AppInitialState(
-      isLoadingInitial: true,
-      logInHandleInitial: state.logInHandle,
-    ));
+    emit(
+      const AppInitialState(
+        isLoadingInitial: true,
+        logInHandleInitial: LogInHandle.fooBar(),
+      ),
+    );
 
     // Notes API
     final logInHandle = state.logInHandle;
-    if (logInHandle != const LogInHandle.fooBar()) {
+    if (logInHandle != acceptedLogInHandle) {
       // invalid LoginHandle, cannot fetch notes
       emit(
-        AppInitialState(
+        const AppInitialState(
           isLoadingInitial: false,
           logInErrorInitial: LogInError.invalidHandle,
-          logInHandleInitial: logInHandle,
         ),
       );
     } else {
       // This is valid Login Handle
 
-      final notes = await notesApi.getNotes(
-        logInHandle: logInHandle!,
-      );
-      emit(
-        AppInitialState(
-          isLoadingInitial: false,
-          logInHandleInitial: logInHandle,
-          fetchNotesInitial: notes,
-          logInErrorInitial: null,
-        ),
-      );
+      final notes = await notesApi.getNotes(logInHandle: logInHandle!);
+      if (notes != null) {
+        emit(
+          const AppInitialState(
+            isLoadingInitial: false,
+            logInHandleInitial: LogInHandle.fooBar(),
+            fetchNotesInitial: [
+              Note(title: 'Note 1'),
+              Note(title: 'Note 2'),
+              Note(title: 'Note 3'),
+            ],
+            logInErrorInitial: null,
+          ),
+        );
+      }
     }
   }
 }
