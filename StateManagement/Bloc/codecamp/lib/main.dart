@@ -1,7 +1,10 @@
-import 'package:codecamp/chapter_4/ui/home_4.dart';
+import 'package:codecamp/chapter_5/ui/home_5.dart';
 import 'package:flutter/material.dart';
+import 'package:firebase_core/firebase_core.dart';
 
-void main() {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp();
   runApp(const MyApp());
 }
 
@@ -24,9 +27,11 @@ class MyApp extends StatelessWidget {
           home: const PersonScreen(),
         Chapter : 3
           home: const Home3Screen(),
+        Chapter : 4
+          home: const Home4Screen(),
 
       */
-      home: const Home4Screen(),
+      home: const Home5Screen(),
     );
   }
 }
