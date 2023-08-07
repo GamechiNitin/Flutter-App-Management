@@ -6,6 +6,7 @@ import 'package:codecamp/chapter_3/api/notes_api.dart';
 import 'package:codecamp/chapter_3/data/mock_data.dart';
 import 'package:codecamp/chapter_3/models/login_model.dart';
 import 'package:codecamp/chapter_3/models/note_model.dart';
+import 'package:codecamp/chapter_5/utils/auth_error.dart';
 import 'package:flutter/foundation.dart' show immutable;
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:collection/collection.dart';

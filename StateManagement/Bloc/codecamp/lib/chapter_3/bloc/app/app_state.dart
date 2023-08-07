@@ -12,6 +12,7 @@ class AppState {
     this.logInError,
     this.logInHandle,
     this.fetchNotes,
+    AuthError? authError,
   });
 
   @override
