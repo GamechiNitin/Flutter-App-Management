@@ -37,7 +37,7 @@ class Home3Screen extends StatelessWidget {
             }
 
             if (state.logInError != null) {
-              showGenericDialog(
+              showGenericDialogs(
                 context: context,
                 title: logInError,
                 content: logInInvalid,

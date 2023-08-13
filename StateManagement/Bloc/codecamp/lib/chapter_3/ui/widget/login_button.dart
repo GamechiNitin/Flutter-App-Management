@@ -21,7 +21,7 @@ class LogInButton extends StatelessWidget {
         final email = emailController.text;
         final password = passwordController.text;
         if (email.isEmpty || password.isEmpty) {
-          showGenericDialog<bool>(
+          showGenericDialogs<bool>(
             context: context,
             title: emailEmpty,
             content: emailPasswordDesc,
