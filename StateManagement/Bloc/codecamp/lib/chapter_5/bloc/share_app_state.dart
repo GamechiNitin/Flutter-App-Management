@@ -17,8 +17,8 @@ class LoggedInShareAppState extends ShareAppState {
   final Iterable<Reference> images;
   const LoggedInShareAppState({
     required this.user,
-    required this.images,
-    required bool isLoading,
+    this.images = const [],
+    bool isLoading = false,
     AuthError? authError,
   }) : super(
           isLoading: isLoading,
@@ -62,7 +62,7 @@ class LogOutState extends ShareAppState {
 @immutable
 class RegisterShareAppState extends ShareAppState {
   const RegisterShareAppState({
-    required bool isLoading,
+    bool isLoading = false,
     AuthError? authError,
   }) : super(
           isLoading: isLoading,

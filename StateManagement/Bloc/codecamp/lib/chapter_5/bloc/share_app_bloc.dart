@@ -12,6 +12,52 @@ part 'share_app_state.dart';
 
 class ShareAppBloc extends Bloc<ShareAppEvent, ShareAppState> {
   ShareAppBloc() : super(const LogOutState()) {
+    on<RegisterShareAppEvent>(
+      (event, emit) async {
+        emit(const RegisterShareAppState(isLoading: true));
+        try {
+          final credential =
+              await FirebaseAuth.instance.createUserWithEmailAndPassword(
+            email: event.email,
+            password: event.password,
+          );
+
+          emit(LoggedInShareAppState(user: credential.user!));
+        } on FirebaseAuthException catch (e) {
+          emit(RegisterShareAppState(authError: AuthError.from(e)));
+        } on FirebaseException {
+          emit(const LogOutState());
+        }
+      },
+    );
+
+    // LogInNavigateShareAppEvent
+    on<LogInNavigateShareAppEvent>((event, emit) => emit(const LogOutState()));
+
+    //  RegiterNavigateShareAppEvent
+    on<RegiterNavigateShareAppEvent>(
+        (event, emit) => emit(const RegisterShareAppState()));
+
+    // LogInShareAppEvent
+    on<LogInShareAppEvent>(
+      (event, emit) async {
+        emit(const LogOutState(isLoading: true));
+        try {
+          final userCredential =
+              await FirebaseAuth.instance.createUserWithEmailAndPassword(
+            email: event.email,
+            password: event.password,
+          );
+          final user = userCredential.user!;
+          final images = await _getImages(user.uid);
+          emit(LoggedInShareAppState(user: user, images: images));
+        } on FirebaseAuthException catch (e) {
+          emit(RegisterShareAppState(authError: AuthError.from(e)));
+        } on FirebaseException {
+          emit(const LogOutState());
+        }
+      },
+    );
     on<InitilizeShareAppEvent>(
       (event, emit) async {
         final user = FirebaseAuth.instance.currentUser;
