@@ -12,6 +12,30 @@ part 'share_app_state.dart';
 
 class ShareAppBloc extends Bloc<ShareAppEvent, ShareAppState> {
   ShareAppBloc() : super(const LogOutState()) {
+    on<InitilizeShareAppEvent>(
+      (event, emit) async {
+        final user = FirebaseAuth.instance.currentUser;
+        if (user == null) {
+          emit(const LogOutState());
+        } else {
+          // Fetch new Image List
+          final images = await _getImages(user.uid);
+          emit(
+            LoggedInShareAppState(
+              user: user,
+              images: images,
+              isLoading: false,
+            ),
+          );
+        }
+      },
+    );
+    // LogOut
+    on<LogOutShareAppEvent>((event, emit) async {
+      emit(const LogOutState());
+      await FirebaseAuth.instance.signOut();
+      emit(const LogOutState());
+    });
     // Account Delete Event
     on<DeleteAccountShareAppEvent>(
       (event, emit) async {
